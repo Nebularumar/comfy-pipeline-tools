@@ -17,3 +17,4 @@ backup/config.json
 mcp/allowlist.json
 mcp/.venv/
 mcp/logs/
+.pytest_cache/
