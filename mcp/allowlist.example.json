@@ -1,0 +1,7 @@
+{
+  "bash":    ["scripts/generate.sh"],
+  "python3": ["scripts/upscale.py"],
+  "batch_dir": "batches",
+  "batch_glob": "batch_*.sh",
+  "batch_exclude": []
+}
