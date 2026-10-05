@@ -49,3 +49,6 @@ bash mcp/instalar.sh   # crea el venv, registra el servidor y hace copia de la c
 
 ## Requisitos
 Linux, Python 3.10, rsync y git. `video/` necesita una clave de fal.ai en `~/.fal_key`.
+
+## Licencia
+MIT (ver `LICENSE`).
