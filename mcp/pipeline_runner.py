@@ -29,7 +29,7 @@ from pathlib import Path
 HOME = Path.home()
 HERE = Path(__file__).resolve().parent
 ROOT = Path(os.path.realpath(os.environ.get("PIPELINE_ROOT") or HERE.parent))
-LOGDIR = HERE / "logs"
+LOGDIR = Path(os.environ.get("PIPELINE_LOGDIR") or HERE / "logs")
 
 
 def _cargar_allowlist() -> dict:
@@ -224,6 +224,11 @@ def _env() -> dict:
     }
 
 
+def _wrapper_env() -> dict:
+    """El vigilante necesita saber dónde están la raíz y los logs; el trabajo en sí no (usa _env)."""
+    return {**_env(), **{k: v for k, v in os.environ.items() if k.startswith("PIPELINE_")}}
+
+
 def _meta_path(job_id: str) -> Path:
     return LOGDIR / f"{job_id}.json"
 
@@ -269,17 +274,21 @@ def _wrap(job_id: str) -> int:
     meta = _read_meta(job_id)
     if not meta:
         return 2
-    child = subprocess.Popen(meta["argv"], cwd=ROOT, env=_env(), stdin=subprocess.DEVNULL,
-                             start_new_session=True)
+    child = None
 
     def parar(signum, frame):
-        try:
-            os.killpg(child.pid, signal.SIGTERM)
-        except ProcessLookupError:
-            pass
         meta["stopped"] = True
+        if child is not None:
+            try:
+                os.killpg(child.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
 
-    signal.signal(signal.SIGTERM, parar)
+    signal.signal(signal.SIGTERM, parar)  # antes de lanzar el hijo: no hay ventana sin manejador
+    child = subprocess.Popen(meta["argv"], cwd=ROOT, env=_env(), stdin=subprocess.DEVNULL,
+                             start_new_session=True)
+    if meta.get("stopped"):  # la señal llegó entre el manejador y el Popen
+        os.killpg(child.pid, signal.SIGTERM)
     try:
         rc = child.wait(timeout=JOB_LIMIT_S)
     except subprocess.TimeoutExpired:
@@ -334,7 +343,7 @@ def start_job(command: str) -> str:
     with open(log, "w") as fh:
         p = subprocess.Popen(
             [sys.executable, os.path.abspath(__file__), "--wrap", job_id],
-            cwd=ROOT, env=_env(), stdin=subprocess.DEVNULL, stdout=fh, stderr=subprocess.STDOUT,
+            cwd=ROOT, env=_wrapper_env(), stdin=subprocess.DEVNULL, stdout=fh, stderr=subprocess.STDOUT,
             start_new_session=True,
         )
     meta["wrapper_pid"] = p.pid

@@ -1,5 +1,7 @@
 # comfy-pipeline-tools
 
+[![CI](https://github.com/Nebularumar/comfy-pipeline-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/Nebularumar/comfy-pipeline-tools/actions/workflows/ci.yml)
+
 Utilidades para mantener un pipeline local de generación de imágenes y vídeo con ComfyUI:
 copia de seguridad reproducible, restauración sin internet y un servidor MCP con lista de
 permitidos para dejar que un asistente lance tiradas sin darle una shell.
@@ -49,6 +51,17 @@ bash mcp/instalar.sh   # crea el venv, registra el servidor y hace copia de la c
 
 ## Requisitos
 Linux, Python 3.10, rsync y git. `video/` necesita una clave de fal.ai en `~/.fal_key`.
+
+## Tests
+
+```bash
+pip install pytest
+python -m pytest
+```
+
+Cubren el runner MCP (rechazos de shell, lista de permitidos, rutas de solo lectura, escritura, trabajos con
+límite de 2 y de 3 h, parada y estado desde disco) y la sintaxis de todos los scripts. La CI los ejecuta en
+Python 3.10 y 3.12 y pasa ShellCheck (solo errores).
 
 ## Licencia
 MIT (ver `LICENSE`).
