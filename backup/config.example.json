@@ -1,0 +1,17 @@
+{
+  "comfyui": { "dir": "/ruta/a/ComfyUI" },
+  "backup": {
+    "uuid": "UUID-DEL-DISCO-DE-BACKUP",
+    "montaje": "/mnt/backup",
+    "destino": "backup_pipeline",
+    "datasets": ["/ruta/a/datasets/mi_dataset"],
+    "entrenamiento": ["/ruta/a/ai-toolkit/output/mi_lora"],
+    "referencia": "/ruta/a/carpeta_de_referencia",
+    "publicadas": ["/ruta/a/ComfyUI/output/publicadas/*.png"],
+    "video_validado": ["/ruta/a/clip_validado.mp4"]
+  },
+  "modelos": {
+    "unet": { "ruta": "unet/mi_modelo.safetensors", "sha256": "…" },
+    "vae":  { "ruta": "vae/mi_vae.safetensors",     "sha256": "…" }
+  }
+}

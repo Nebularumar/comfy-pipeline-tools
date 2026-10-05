@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup semanal del pipeline ComfyUI
+# backup.sh comprueba él mismo que el disco del UUID está montado y aborta si no
+
+[Service]
+Type=oneshot
+# Ajusta la ruta al clonar el repo
+ExecStart=/usr/bin/bash %h/comfy-pipeline-tools/backup/backup.sh
+Nice=10
+IOSchedulingClass=idle

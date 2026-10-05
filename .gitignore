@@ -1,0 +1,19 @@
+# Modelos, datasets, medios y wheels: van al backup, nunca a git
+*.safetensors
+*.pt
+*.pth
+*.onnx
+*.ckpt
+*.gguf
+*.png
+*.jpg
+*.jpeg
+*.mp4
+wheels/
+__pycache__/
+*.pyc
+# Configuración local (rutas, UUID del disco, allowlist)
+backup/config.json
+mcp/allowlist.json
+mcp/.venv/
+mcp/logs/

@@ -1,0 +1,8 @@
+# repo  commit  origen  (usado = lo usa el pipeline)
+ComfyUI 51bf508a0b1bde9416a0c221b0f33f8325305229 https://github.com/comfyanonymous/ComfyUI.git usado
+custom_nodes/ComfyUI-GGUF 6ea2651e7df66d7585f6ffee804b20e92fb38b8a https://github.com/city96/ComfyUI-GGUF no_usado
+custom_nodes/ComfyUI-Impact-Pack 429d0159ad429e64d2b3916e6e7be9c22d025c3c https://github.com/ltdrdata/ComfyUI-Impact-Pack.git no_usado
+custom_nodes/ComfyUI-Impact-Subpack 50c7b71a6a224734cc9b21963c6d1926816a97f1 https://github.com/ltdrdata/ComfyUI-Impact-Subpack.git no_usado
+custom_nodes/ComfyUI-Manager d6f480c911d0b98b4a9f4871f263d90a15f0d9d2 https://github.com/ltdrdata/ComfyUI-Manager.git no_usado
+custom_nodes/ComfyUI-SeedVR2_VideoUpscaler 4490bd1f482e026674543386bb2a4d176da245b9 https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler.git usado
+custom_nodes/RES4LYF 119679d8d8d26e6db52757e705488abb6399d7d4 https://github.com/ClownsharkBatwing/RES4LYF.git no_usado
