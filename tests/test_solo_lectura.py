@@ -1,9 +1,13 @@
+import shutil
+
 import pytest
 
 PERMITIDOS = [
     "ls", "ls -la scripts", "cat datos.txt", "head -n 1 datos.txt", "tail -n 1 datos.txt",
     "wc -l datos.txt", "du -sh .", "find . -maxdepth 1 -name '*.txt'",
-    "git status", "git log --oneline -3", "git diff", "nvidia-smi",
+    "git status", "git log --oneline -3", "git diff",
+    pytest.param("nvidia-smi", marks=pytest.mark.skipif(
+        shutil.which("nvidia-smi") is None, reason="sin GPU NVIDIA")),
 ]
 RECHAZADOS = [
     "ls ~", "ls ..", "ls /etc", "ls ~/.ssh", "cat ../../.bashrc", "cat ../x",
